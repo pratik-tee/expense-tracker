@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Group Details</title>
+    <meta charset="UTF-8">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome (for delete icon) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <!-- Group Name -->
+    <h3 class="mb-4">{{ group[1] }}</h3>
+
+    <!-- Members Section -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header fw-bold">
+            Members
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for m in members %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ m[0] }}
+                    <span class="badge bg-secondary text-uppercase">{{ m[1] }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- 🔥 Split Summary -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header fw-bold">
+            Split Summary
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for email, balance in balances %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ email }}
+
+                    {% if balance > 0 %}
+                        <span class="badge bg-danger">
+                            Owes ₹{{ "%.2f"|format(balance) }}
+                        </span>
+                    {% elif balance < 0 %}
+                        <span class="badge bg-success">
+                            Gets ₹{{ "%.2f"|format(-balance) }}
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            Settled
+                        </span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Expenses Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header fw-bold d-flex justify-content-between align-items-center">
+            Group Expenses
+            <a href="/groups/{{ group_id }}/add-expense" class="btn btn-sm btn-primary">
+                + Add Expense
+            </a>
+        </div>
+
+        <div class="card-body p-0">
+            {% if expenses %}
+            <table class="table table-striped mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Paid By</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in expenses %}
+                    <tr>
+                        <td>{{ e[1] }}</td>
+                        <td>₹{{ e[2] }}</td>
+                        <td>{{ e[3] }}</td>
+                        <td>{{ e[4] }}</td>
+                        <td>{{ e[5] }}</td>
+
+                        <td class="text-center">
+                            {% if e[6] %}
+                            <form method="POST"
+                                  action="/groups/{{ group_id }}/expense/{{ e[0] }}/delete"
+                                  onsubmit="return confirm('Are you sure you want to delete this expense?');"
+                                  style="display:inline;">
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger"
+                                        title="Delete Expense">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+                <p class="p-3 mb-0 text-muted">No expenses added yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-3">
+        <a href="/groups/{{ group_id }}/invite" class="btn btn-success">
+            + Invite Member
+        </a>
+
+        <a href="/groups" class="btn btn-outline-secondary ms-2">
+            Back to Groups
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,149 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            background: linear-gradient(to right, #eef2f3, #8e9eab);
-            font-family: 'Segoe UI', sans-serif;
-            padding-top: 40px;
-            transition: background-color 0.3s, color 0.3s;
-        }
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-        .dashboard-card {
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            background: white;
-            transition: background-color 0.3s, color 0.3s;
-        }
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        h1 {
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e9eef2, #9fb3c8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .btn {
-            font-weight: 500;
-            font-size: 1.05rem;
-            padding: 14px;
-            border-radius: 12px;
-            transition: 0.3s ease;
-        }
+.dashboard-card {
+    background: white;
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 22px;
+    padding: 40px 45px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+    animation: fadeIn 0.8s ease;
+}
 
-        .btn i {
-            margin-right: 8px;
-        }
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
 
-        .btn:hover {
-            transform: scale(1.03);
-        }
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
 
-        .stats-box {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-        }
+.header h1 {
+    font-weight: 600;
+}
 
-        .profile-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
+.header p {
+    color: #666;
+    margin-top: 4px;
+}
 
-        .dark-mode {
-            background-color: #121212 !important;
-            color: #f1f1f1 !important;
-        }
+.stats {
+    background: #f7f9fb;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 35px;
+}
 
-        .dark-mode .dashboard-card {
-            background-color: #1e1e1e;
-        }
+.stat-box {
+    text-align: center;
+}
 
-        .dark-mode .stats-box {
-            background-color: #2c2c2c;
-        }
+.stat-box h6 {
+    color: #666;
+    font-weight: 500;
+}
 
-        .dark-toggle {
-            cursor: pointer;
-            font-size: 1.2rem;
-            float: right;
-        }
-    </style>
+.stat-box h3 {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.action-btn {
+    border-radius: 16px;
+    padding: 18px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.action-btn i {
+    margin-right: 8px;
+}
+
+.action-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.btn-green { background: #198754; color: white; }
+.btn-blue { background: #0d6efd; color: white; }
+.btn-yellow { background: #ffc107; color: #000; }
+.btn-purple { background: #6f42c1; color: white; }
+.btn-cyan { background: #0dcaf0; color: white; }
+.btn-gray { background: #6c757d; color: white; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(35px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <!-- Dark Mode Toggle -->
-    <div class="text-end mb-2">
-        <i class="fas fa-moon dark-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode"></i>
+<div class="dashboard-card">
+
+    <!-- Header -->
+    <div class="header">
+        <img src="https://i.pravatar.cc/150" class="avatar">
+        <h1>Welcome{% if email %}, {{ email }}{% endif %} 👋</h1>
+        <p>Manage your finances effortlessly</p>
     </div>
 
-    <!-- Dashboard Card -->
-    <div class="dashboard-card text-center">
-        <div class="d-flex justify-content-center align-items-center mb-4">
-            <img src="https://i.pravatar.cc/100?u={{ username }}" alt="User Avatar" class="profile-avatar">
-            <div>
-                <h1>Welcome, {{ username }} 👋</h1>
-                <p class="text-muted">Manage your finances effortlessly</p>
-            </div>
+    <!-- Stats -->
+    <div class="row stats text-center">
+        <div class="col-md-6 stat-box">
+            <h6>Total Spent</h6>
+            <h3 class="text-success">₹{{ total_spent }}</h3>
         </div>
-
-        <!-- Summary Stats -->
-        <div class="row stats-box text-center">
-            <div class="col-md-6 mb-3 mb-md-0">
-                <h5>Total Spent</h5>
-                <h3 class="text-success">₹{{ total_spent }}</h3>
-            </div>
-            <div class="col-md-6">
-                <h5>Total Entries</h5>
-                <h3 class="text-primary">{{ total_entries }}</h3>
-            </div>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-4 d-grid">
-                <a href="/add" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Expense</a>
-            </div>
-            <div class="col-md-4 d-grid">
-                <a href="/view" class="btn btn-primary"><i class="fas fa-table"></i> View All Expenses</a>
-            </div>
-            <div class="col-md-4 d-grid">
-                <a href="/view" class="btn btn-warning text-dark"><i class="fas fa-filter"></i> Filter Expenses</a>
-            </div>
-            <div class="col-md-4 d-grid">
-                <a href="/view" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete Expense</a>
-            </div>
-            <div class="col-md-4 d-grid">
-                <a href="/pie" class="btn btn-info text-white"><i class="fas fa-chart-pie"></i> View Pie Chart</a>
-            </div>
-            <div class="col-md-4 d-grid">
-                <a href="/logout" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
+        <div class="col-md-6 stat-box">
+            <h6>Total Entries</h6>
+            <h3 class="text-primary">{{ total_entries }}</h3>
         </div>
     </div>
+
+    <!-- Actions -->
+    <div class="row g-4 mt-3">
+
+        <!-- Personal Expenses -->
+        <div class="col-md-4 d-grid">
+            <a href="/add" class="btn action-btn btn-green">
+                <i class="fas fa-plus-circle"></i> Add Expense
+            </a>
+        </div>
+
+        <div class="col-md-4 d-grid">
+            <a href="/view" class="btn action-btn btn-blue">
+                <i class="fas fa-table"></i> View Expenses
+            </a>
+        </div>
+
+        <div class="col-md-4 d-grid">
+            <a href="/pie" class="btn action-btn btn-cyan">
+                <i class="fas fa-chart-pie"></i> Analytics
+            </a>
+        </div>
+
+        <!-- GROUP FEATURES -->
+        <div class="col-md-4 d-grid">
+            <a href="/groups" class="btn action-btn btn-yellow">
+                <i class="fas fa-users"></i> My Groups
+            </a>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="col-md-4 d-grid">
+            <a href="{{ url_for('notifications') }}" class="btn action-btn btn-purple">
+                <i class="fas fa-bell"></i> Notifications
+
+                {% if unread_notifications > 0 %}
+                <span class="position-absolute top-0 start-100 translate-middle
+                             badge rounded-pill bg-danger">
+                    {{ unread_notifications }}
+                </span>
+                {% endif %}
+            </a>
+        </div>
+
+        <!-- LOGOUT -->
+        <div class="col-md-4 d-grid">
+            <a href="{{ url_for('logout') }}" class="btn action-btn btn-gray">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+    </div>
+
 </div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-</script>
 
 </body>
 </html>
