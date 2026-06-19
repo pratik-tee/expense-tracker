@@ -45,35 +45,7 @@ Expense Distribution Chart
 
 Replace the images above with actual screenshots from your project.
 
-📂 Project Structure
-Expense-Tracker/
-│
-├── app.py
-├── requirements.txt
-├── users.csv
-├── expenses.csv
-│
-├── static/
-│   ├── style.css
-│   ├── charts/
-│   └── images/
-│
-├── templates/
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── add_expense.html
-│   ├── view_expenses.html
-│   ├── filter_expenses.html
-│   └── delete_expense.html
-│
-├── screenshots/
-│   ├── login.png
-│   ├── dashboard.png
-│   ├── analysis.png
-│   └── chart.png
-│
-└── README.md
+
 ⚙️ Installation & Setup
 Clone Repository
 git clone https://github.com/your-username/intelligent-expense-tracker.git
